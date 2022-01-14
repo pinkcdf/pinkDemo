@@ -15,20 +15,7 @@ npm run serve
 npm run build
 ```
 
-### Run your unit tests
-```
-npm run test:unit
-```
+一个简单的前端vue框架，里面包含了axios的封装，页面布局、和一些功能的案列
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
