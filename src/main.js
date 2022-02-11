@@ -1,7 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import Vuex from "vuex";
+import store from './vuex/store'
+
 import ElementUI from 'element-ui';
 import HighchartsVue from "highcharts-vue";
 import Highcharts from 'highcharts'
@@ -11,6 +13,7 @@ import './assets/css/default.css'
 Vue.use(ElementUI);
 Maps(Highcharts)
 Vue.use(HighchartsVue);
+Vue.use(Vuex)
 
 Vue.config.productionTip = false;
 

@@ -18,6 +18,12 @@ import Explain from "../components/Explain";
 export default {
   name: "componentValueTransfer",
   components: { Explain, Son, Grandson },
+  provide(){
+    return {
+      grandsonChange: this.changeVal,
+      grandsonVal:()=> this.father
+    }
+  },
   data() {
     return {
       content: [
