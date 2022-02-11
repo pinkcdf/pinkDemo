@@ -4,6 +4,7 @@ import Home from "../components/pubilc/Home.vue"
 import highchartsUse from "../views/highchartsUse";
 import highchartsMapUse from "../views/highchartsMapUse";
 import canvasUse from "../views/canvasUse";
+import componentValueTransfer from "../views/componentValueTransfer";
 
 Vue.use(VueRouter);
 
@@ -28,7 +29,11 @@ const routes = [
        name:"canvasUse",
        component:canvasUse,
      },
-
+     {
+       path:"/componentValueTransfer",
+       name:"componentValueTransfer",
+       component:componentValueTransfer,
+     },
    ]
  }
 ];

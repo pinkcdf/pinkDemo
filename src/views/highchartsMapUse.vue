@@ -3,7 +3,7 @@
     <!--  main.js中导入 import Highcharts from 'highcharts' import Maps from "highcharts/modules/map"，并Maps(Highcharts)-->
     <!--下载json格式地图数据，并导入。指定:constructorType="'mapChart'"，用:options="chartOptions"-->
     <!--  注* allAreas: true,开始显示所有地图数据 否则data中必须有地图的数据地图才会显示-->
-    <highcharts style="width: 500px;height: 400px" :constructorType="'mapChart'" :options="chartOptions" ref="chart"></highcharts>
+    <highcharts style="width: 500px;height: 400px; transform: perspective(500px) rotatex(30deg) ;" :constructorType="'mapChart'" :options="chartOptions" ref="chart"></highcharts>
     <explain :content="content"></explain>
   </div>
 

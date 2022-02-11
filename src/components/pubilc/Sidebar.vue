@@ -49,13 +49,19 @@ export default {
             },
             {
               title: "highChart地图",
-              path: "/highchartsMapUse"
+              path: "/highchartsMapUse",
             }
           ]
         },
         {
-          title: "canvas",
+          title: "canvas的简单使用",
           path: "/canvasUse",
+          img: 'el-icon-takeaway-box'
+        },
+        {
+          title: "组件的数据交互",
+          path: "/componentValueTransfer",
+          img: 'el-icon-takeaway-box'
         },
       ]
     };

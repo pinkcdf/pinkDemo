@@ -37,11 +37,11 @@ export default {
     //创建画布并挂在ctx上
     const canvas = that.$refs.myCanvas;
     that.ctx = canvas.getContext("2d");
-    that.getSize();
-    //监控窗口变化
-    window.onresize = function() {
-      that.getSize();
-    };
+    // that.getSize();
+    // //监控窗口变化
+    // window.onresize = function() {
+    //   that.getSize();
+    // };
   },
 //绘制内容前准备步骤
   methods: {
@@ -127,15 +127,16 @@ export default {
 
 <style scoped>
 .box {
-  width: 100%;
-  height: 100%;
+  width: 600px;
+  height: 700px;
   background-color: #070000;
-  display: flex;
-  position: relative;
+  /*display: flex;*/
+  /*position: relative;*/
+  border: black solid 2px;
 }
 
 #canvas {
-  background-color: #9c9494;
+  background-color: #ffffff;
 }
 
 .tool {
