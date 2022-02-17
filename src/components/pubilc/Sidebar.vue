@@ -21,7 +21,7 @@
         </el-submenu>
         <el-menu-item v-else :key="item.path" :index="item.path" >
           <template slot="title">
-            <i class="el-icon-location"></i>
+<!--            <i class="el-icon-location"></i>-->
             <span slot="title">{{item.title}}</span>
           </template>
         </el-menu-item>
@@ -40,7 +40,7 @@ export default {
         {
           title: "图表",
           path: "/",
-          img:'el-icon-data-line',
+          img:'',
           subs: [
             {
               title: "highChart图表",
@@ -56,12 +56,17 @@ export default {
         {
           title: "canvas的简单使用",
           path: "/canvasUse",
-          img: 'el-icon-takeaway-box'
+          img: ''
         },
         {
           title: "组件的数据交互",
           path: "/componentValueTransfer",
-          img: 'el-icon-takeaway-box'
+          img: ''
+        },
+        {
+          title: "pixi的使用",
+          path: "/pixi",
+          img: ''
         },
       ]
     };

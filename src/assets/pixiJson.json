@@ -1,0 +1,23 @@
+{"frames": {
+
+  "hasira":
+  {
+    "frame": {"x":0,"y":64,"w":64,"h":128},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":64,"w":64,"h":128},
+    "sourceSize": {"w":64,"h":128}
+  },
+  "sakura":
+  {
+    "frame": {"x":64,"y":64,"w":128,"h":128},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":64,"y":64,"w":128,"h":128},
+    "sourceSize": {"w":128,"h":128}
+  }
+},
+  "meta": {
+    "image": "200001.png"
+  }
+}

@@ -5,6 +5,7 @@ import highchartsUse from "../views/highchartsUse";
 import highchartsMapUse from "../views/highchartsMapUse";
 import canvasUse from "../views/canvasUse";
 import componentValueTransfer from "../views/componentValueTransfer";
+import pixi from "../views/pixi";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
        path:"/componentValueTransfer",
        name:"componentValueTransfer",
        component:componentValueTransfer,
+     },
+     {
+       path:"/pixi",
+       name:"pixi",
+       component:pixi,
      },
    ]
  }
