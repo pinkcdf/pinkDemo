@@ -17,7 +17,8 @@ export default {
     return {
       pixi: null,
       pic:null,
-      info:{name:'bunny',url:require("@/assets/img/business-3d-girl-with-phone-1.png")},
+      // info:{name:'bunny',url:require("@/assets/img/business-3d-girl-with-phone-1.png")},
+      info:{name:'bunny',url:require("@/assets/img/goutou.gif")},
       zoom:1,
       movex:0,
       movey:0,
@@ -44,6 +45,9 @@ export default {
         // Setup the position of the bunny
         bunny.x = this.pixi.renderer.width/2;
         bunny.y = this.pixi.renderer.height/2;
+
+        bunny.width = 100
+        bunny.height = 80
 
         // Rotate around the center
         bunny.anchor.x = 0.5;
