@@ -4,7 +4,8 @@
     <button @click="scale">缩小</button>
     <button @click="back">还原</button>
     <button @click="big">放大</button>
-    <button @click="doSomething">放大</button>
+    <button @click="del">删除精灵</button>
+    <button @click="add">精灵</button>
   </div>
 </template>
 
@@ -37,23 +38,21 @@ export default {
   methods: {
     initState() {
       document.getElementById("pixi").appendChild(this.pixi.view);
-
+      this.add()
+    },
+    add(){
       this.pixi.loader.add(this.info).load((loader, resources) => {
-        // This creates a texture from a 'bunny.png' image
-        const bunny = new PIXI.Sprite(resources.bunny.texture);
+        let bunny = new PIXI.Sprite(resources.bunny.texture);
 
-        // Setup the position of the bunny
         bunny.x = this.pixi.renderer.width/2;
         bunny.y = this.pixi.renderer.height/2;
 
         bunny.width = 100
         bunny.height = 80
 
-        // Rotate around the center
         bunny.anchor.x = 0.5;
         bunny.anchor.y = 0.5;
 
-        // Add the bunny to the scene we are building
         this.pixi.stage.addChild(bunny);
 
         this.pixi.interactive = true
@@ -103,6 +102,10 @@ export default {
       rectangle.x = 170;
       rectangle.y = 170;
       this.pixi.stage.addChild(rectangle);
+    },
+    del(){
+      this.pixi.stage.removeChild(this.pic)
+      this.pic = null
     }
   }
 };
