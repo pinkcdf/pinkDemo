@@ -64,8 +64,8 @@ export default {
     },
     add2() {
       let bunny = PIXI.Sprite.from(img);
-      bunny.x = this.randomNum(1,1000)
-      bunny.y = this.randomNum(1,600)
+      bunny.x = this.randomNum(100,900)
+      bunny.y = this.randomNum(80,520)
       bunny.width = 100;
       bunny.height = 80;
       bunny.anchor.x = 0.5;
@@ -124,6 +124,7 @@ export default {
       this.pixi.stage.removeChild(this.pic);
       this.pic = null;
     },
+    //生成随机数
     randomNum(Min, Max) {
       let Range = Max - Min;
       let Rand = Math.random();
