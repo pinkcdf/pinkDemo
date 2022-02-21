@@ -11,23 +11,25 @@
 
 <script>
 import * as PIXI from "pixi.js";
-import picture from '@/assets/img/goutou.gif'
-let img = PIXI.Texture.from(picture)
+import picture from "@/assets/img/goutou.gif";
+
+let img = PIXI.Texture.from(picture);
 
 export default {
   name: "pixi",
   data() {
     return {
       pixi: null,
-      pic:null,
+      pic: null,
       // info:{name:'bunny',url:require("@/assets/img/business-3d-girl-with-phone-1.png")},
-      info:{name:'bunny',url:require("@/assets/img/goutou.gif")},
-      zoom:1,
-      movex:0,
-      movey:0,
-      movex2:0,
-      movey2:0,
-      num:1,
+      info: { name: "bunny", url: require("@/assets/img/goutou.gif") },
+      zoom: 1,
+      movex: 0,
+      movey: 0,
+      movex2: 0,
+      movey2: 0,
+      num: 1,
+      move: 50
     };
   },
   mounted() {
@@ -41,74 +43,74 @@ export default {
   methods: {
     initState() {
       document.getElementById("pixi").appendChild(this.pixi.view);
-      this.add2()
+      this.add2();
     },
-    add(){
+    add() {
       this.pixi.loader.add(this.info).load((loader, resources) => {
-        let bunny= new PIXI.Sprite(resources.bunny.texture);
+        let bunny = new PIXI.Sprite(resources.bunny.texture);
 
-        bunny.x = this.pixi.renderer.width/2;
-        bunny.y = this.pixi.renderer.height/2;
+        bunny.x = this.pixi.renderer.width / 2;
+        bunny.y = this.pixi.renderer.height / 2;
 
-        bunny.width = 100
-        bunny.height = 80
+        bunny.width = 100;
+        bunny.height = 80;
 
         bunny.anchor.x = 0.5;
         bunny.anchor.y = 0.5;
         this.pixi.stage.addChild(bunny);
-        this.pixi.interactive = true
-        this.pic = bunny
+        this.pixi.interactive = true;
+        this.pic = bunny;
       });
     },
-    add2(){
+    add2() {
       let bunny = PIXI.Sprite.from(img);
-      bunny.x = this.pixi.renderer.width/2;
-      bunny.y = this.pixi.renderer.height/2;
-      bunny.width = 100
-      bunny.height = 80
+      bunny.x = this.randomNum(1,1000)
+      bunny.y = this.randomNum(1,600)
+      bunny.width = 100;
+      bunny.height = 80;
       bunny.anchor.x = 0.5;
       bunny.anchor.y = 0.5;
 
       this.pixi.stage.addChild(bunny);
-
-      this.pixi.interactive = true
+      this.pixi.interactive = true;
 
       // this.pixi.ticker.add(() => {
       //   bunny.rotation += 0.01;
       // });
-      this.pic = bunny
+      this.pic = bunny;
+      this.move = this.move + 50;
     },
-    scale(){
-      this.zoom = this.zoom - 0.1
-      this.pic.scale.set(this.zoom,this.zoom)
+    scale() {
+      this.zoom = this.zoom - 0.1;
+      this.pic.scale.set(this.zoom, this.zoom);
     },
-    back(){
-      this.pic.scale.set(1,1)
-      this.zoom = 1
+    back() {
+      this.pic.scale.set(1, 1);
+      this.zoom = 1;
     },
-    big(){
-      this.zoom = this.zoom + 0.1
-      this.pic.scale.set(this.zoom,this.zoom)
+    big() {
+      this.zoom = this.zoom + 0.1;
+      this.pic.scale.set(this.zoom, this.zoom);
     },
-    beforeMove(e){
-      this.movex = e.offsetX
-      this.movey = e.offsetY
+    beforeMove(e) {
+      this.movex = e.offsetX;
+      this.movey = e.offsetY;
     },
-    moving(e){
-      this.movex2 = e.offsetX
-      this.movey2 = e.offsetY
-      let x = this.movex2 - this.movex
-      let y = this.movey2 - this.movey
-      console.log( this.movey2 , this.movey);
-      console.log(x,y);
-      if (Math.abs(this.movex2 - this.movex) > 10){
-        this.pic.position.set(this.pixi.renderer.width/2+x, this.pixi.renderer.height/2+y)
-        console.log(this.pixi.renderer.width/2+x, this.pixi.renderer.height/2+y);
-        this.pic.x =this.pixi.renderer.width/2+x
-        this.pic.y = this.pixi.renderer.height/2+y
+    moving(e) {
+      this.movex2 = e.offsetX;
+      this.movey2 = e.offsetY;
+      let x = this.movex2 - this.movex;
+      let y = this.movey2 - this.movey;
+      console.log(this.movey2, this.movey);
+      console.log(x, y);
+      if (Math.abs(this.movex2 - this.movex) > 10) {
+        this.pic.position.set(this.pixi.renderer.width / 2 + x, this.pixi.renderer.height / 2 + y);
+        console.log(this.pixi.renderer.width / 2 + x, this.pixi.renderer.height / 2 + y);
+        this.pic.x = this.pixi.renderer.width / 2 + x;
+        this.pic.y = this.pixi.renderer.height / 2 + y;
       }
     },
-    doSomething(){
+    doSomething() {
       let rectangle = new PIXI.Graphics();
       rectangle.lineStyle(4, 0xFF3300, 1);
       rectangle.beginFill(0x66CCFF);
@@ -118,12 +120,26 @@ export default {
       rectangle.y = 170;
       this.pixi.stage.addChild(rectangle);
     },
-    del(){
-      this.pixi.stage.removeChild(this.pic)
-      this.pic = null
+    del() {
+      this.pixi.stage.removeChild(this.pic);
+      this.pic = null;
+    },
+    randomNum(Min, Max) {
+      let Range = Max - Min;
+      let Rand = Math.random();
+      if (Math.round(Rand * Range) == 0) {
+        return Min + 1;
+      } else if (Math.round(Rand * Max) == Max) {
+        index++;
+        return Max - 1;
+      } else {
+        let num = Min + Math.round(Rand * Range) - 1;
+        return num;
+      }
     }
   }
-};
+}
+;
 </script>
 
 <style scoped>
