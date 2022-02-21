@@ -5,12 +5,14 @@
     <button @click="back">还原</button>
     <button @click="big">放大</button>
     <button @click="del">删除精灵</button>
-    <button @click="add">精灵</button>
+    <button @click="add2">精灵</button>
   </div>
 </template>
 
 <script>
 import * as PIXI from "pixi.js";
+import picture from '@/assets/img/goutou.gif'
+let img = PIXI.Texture.from(picture)
 
 export default {
   name: "pixi",
@@ -25,6 +27,7 @@ export default {
       movey:0,
       movex2:0,
       movey2:0,
+      num:1,
     };
   },
   mounted() {
@@ -38,11 +41,11 @@ export default {
   methods: {
     initState() {
       document.getElementById("pixi").appendChild(this.pixi.view);
-      this.add()
+      this.add2()
     },
     add(){
       this.pixi.loader.add(this.info).load((loader, resources) => {
-        let bunny = new PIXI.Sprite(resources.bunny.texture);
+        let bunny= new PIXI.Sprite(resources.bunny.texture);
 
         bunny.x = this.pixi.renderer.width/2;
         bunny.y = this.pixi.renderer.height/2;
@@ -52,16 +55,28 @@ export default {
 
         bunny.anchor.x = 0.5;
         bunny.anchor.y = 0.5;
-
         this.pixi.stage.addChild(bunny);
-
         this.pixi.interactive = true
-
-        // this.pixi.ticker.add(() => {
-        //   bunny.rotation += 0.01;
-        // });
         this.pic = bunny
       });
+    },
+    add2(){
+      let bunny = PIXI.Sprite.from(img);
+      bunny.x = this.pixi.renderer.width/2;
+      bunny.y = this.pixi.renderer.height/2;
+      bunny.width = 100
+      bunny.height = 80
+      bunny.anchor.x = 0.5;
+      bunny.anchor.y = 0.5;
+
+      this.pixi.stage.addChild(bunny);
+
+      this.pixi.interactive = true
+
+      // this.pixi.ticker.add(() => {
+      //   bunny.rotation += 0.01;
+      // });
+      this.pic = bunny
     },
     scale(){
       this.zoom = this.zoom - 0.1
