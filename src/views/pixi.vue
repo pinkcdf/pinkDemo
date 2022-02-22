@@ -1,10 +1,6 @@
 <template>
   <div id="app">
     <div id="pixi" style="z-index:-1;" @mousedown="beforeMove" @mouseup="moving"></div>
-    <!--    <button @click="scale">缩小</button>-->
-    <!--    <button @click="back">还原</button>-->
-    <!--    <button @click="big">放大</button>-->
-    <!--    <button @click="del">删除精灵</button>-->
     <button @click="add2">新人入场</button>
     <button @click="shout">mac喊麦</button>
     <button @click="remove">清空喊麦</button>
