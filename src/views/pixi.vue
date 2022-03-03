@@ -1,11 +1,26 @@
 <template>
   <div id="app">
-    <div id="pixi" style="z-index:-1;" @mousedown="beforeMove" @mouseup="moving"></div>
-    <button @click="add2">新人入场</button>
-    <button @click="shout">mac喊麦</button>
-    <button @click="remove">清空喊麦</button>
-    <button @click="shoutSomeone">固定某人发言</button>
-    <button @click="change">固定某人发言</button>
+    <!--        <div id="pixi" style="z-index:-1;" @mousedown="beforeMove" @mouseup="moving"></div>-->
+    <!--    <div style="position: absolute;background-color: #888888; width: 1000px;height: 800px;top: 100px">-->
+    <!--      <div class="player" v-for="(item,index) in player" :style="item.position">-->
+    <!--        <div style="width: 200px;height:40px;display: flex;justify-content: center;align-items: center;z-index: 2;">-->
+    <!--          <span style="z-index: 2">{{item.text}}</span>-->
+    <!--        </div>-->
+    <!--        <span>{{ item.name }}</span>-->
+    <!--        <img style="z-index: 2" width="100px" :src="item.img" />-->
+    <!--                <div  style="z-index: 1;width: 100px;height: 30px;background-color: rgba(7,0,0,0.81);border-radius: 50%;position: relative;top: -20px;"></div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+    <!--    &lt;!&ndash;    <button @click="add2">新人入场</button>&ndash;&gt;-->
+    <!--    <button @click="addPlayer">新人入场</button>-->
+    <!--    &lt;!&ndash;    <button @click="shout">mac喊麦</button>&ndash;&gt;-->
+    <!--    <button @click="sayHi">mac喊麦</button>-->
+    <!--    &lt;!&ndash;    <button @click="remove">清空喊麦</button>&ndash;&gt;-->
+    <!--    <button @click="delText">清空喊麦</button>-->
+    <!--    <button @click="shoutSomeone">固定某人发言</button>-->
+    <!--    <button @click="change">固定某人发言</button>-->
+
   </div>
 </template>
 
@@ -16,6 +31,13 @@ import soundBox from "@/assets/img/sound.png";
 
 let img = PIXI.Texture.from(picture);
 let soundBoxImg = PIXI.Texture.from(soundBox);
+const borderline = new PIXI.Graphics();
+const polygonLine = new PIXI.Graphics();
+const line = new PIXI.Graphics();
+borderline.lineStyle(2,0x000000,0.5)//边线(宽度，颜色，透明度)
+line.lineStyle(2,0x000000,0.5)//边线(宽度，颜色，透明度)
+polygonLine.lineStyle(1, 0x000000, 1)//边线(宽度，颜色，透明度)
+// polygonLine.beginFill(0xffffff)
 
 export default {
   name: "pixi",
@@ -37,7 +59,20 @@ export default {
       pics: [],
       sound1: null,
       sound2: null,
-      position: []
+      position: [],
+      player: [
+        {
+          name: "123",
+          img: require("../assets/img/goutou.gif"),
+          text: "大家好,大家好",
+          position: {
+            left: "0px"
+          },
+          time:new Date()
+        }
+      ],
+      img: "@/assets/img/goutou.gif",
+      playerNum: 0,
     };
   },
   mounted() {
@@ -47,13 +82,18 @@ export default {
       backgroundColor: 0xEF6644
     });
     this.text = new PIXI.Container();
+    document.getElementById("pixi").appendChild(this.pixi.view);
     this.initState();
+    // this.clear()
+  },
+  computed:{
+
   },
   methods: {
     initState() {
-      document.getElementById("pixi").appendChild(this.pixi.view);
-      this.add2();
-      this.addSound();
+
+      // this.add2();
+      // this.addSound();
     },
     addSound() {
       let bunny = PIXI.Sprite.from(soundBoxImg);
@@ -166,9 +206,9 @@ export default {
     randomNum(Min, Max) {
       let Range = Max - Min;
       let Rand = Math.random();
-      if (Math.round(Rand * Range) == 0) {
+      if (Math.round(Rand * Range) === 0) {
         return Min + 1;
-      } else if (Math.round(Rand * Max) == Max) {
+      } else if (Math.round(Rand * Max) === Max) {
         index++;
         return Max - 1;
       } else {
@@ -177,6 +217,7 @@ export default {
       }
     },
     shout() {
+      this.remove();
       this.text = new PIXI.Container();
       for (let i in this.position) {
         let message = new PIXI.Text("嗨起来！！！");
@@ -191,17 +232,54 @@ export default {
       this.text.addChild(message);
       this.pixi.stage.addChild(this.text);
       console.log(this.text);
-      this.text.children[0]._text = 'wwwwwww'
+      this.text.children[0]._text = "wwwwwww";
     },
     remove() {
       this.pixi.stage.removeChild(this.text);
       this.text = null;
     },
-    change(){
-      console.log(1111);
+    change() {
+      this.player.forEach(value => {
+        if (value.name === "123") {
+          value.text = "我是一号";
+        }
+      });
+    },
+    addPlayer() {
+      this.playerNum++
+      let newPlayer = {
+        name: "周某人",
+        img: require("../assets/img/goutou.gif"),
+        text: "大家好,大家好",
+        position: {
+          left: "0px",
+          top: "0px"
+        },
+        time:new Date()
+      };
+      newPlayer.position.left = this.randomNum(10, 700) + "px";
+      newPlayer.position.top = this.randomNum(10, 600) + "px";
+      this.player.push(newPlayer);
+    },
+    delText() {
+      this.player.forEach(value => value.text = "");
+    },
+    sayHi() {
+      this.player.forEach(value => {
+        value.text = "都给我蹦起来"
+        value.time = new Date()
+      });
+    },
+    clear(){
+      setInterval(()=>{
+        this.player.forEach(value => {
+          if (new Date().getTime() - value.time.getTime() >=4000){
+            value.text = ''
+          }
+        })
+      },100)
+    },
 
-      console.log(this.text.children[0]);
-    }
   }
 }
 ;
@@ -210,5 +288,13 @@ export default {
 <style scoped>
 #pixi {
   /*border: saddlebrown solid 1px;*/
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute
 }
 </style>
