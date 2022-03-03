@@ -52,6 +52,7 @@ export function drawPolygon(color,app,pixi){
   }
 
 
+
   pixi.addEventListener('mousedown',whenMouseDown)
   pixi.addEventListener('mouseup',whenMouseUp)
   pixi.addEventListener('mousemove',mouseMove)

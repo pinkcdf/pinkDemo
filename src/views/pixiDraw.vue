@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-radio-group @change="changeMode" v-model="mode">
-      <el-radio-button label="polygon"></el-radio-button>
-      <el-radio-button label="rect"></el-radio-button>
+      <el-radio-button label="polygon">多边形</el-radio-button>
+      <el-radio-button label="rect">矩形</el-radio-button>
     </el-radio-group>
     <div ref="pixi" id="pixi" style="z-index:-1;background-color: #888888"></div>
 
@@ -11,6 +11,7 @@
 
 <script>
 import * as PIXI from "pixi.js";
+import {drawRect} from "../assets/draw/rect";
 
 export default {
   name: "pixiDraw",
@@ -19,7 +20,8 @@ export default {
       pixi: null,
       canDraw: false,
       polygon: [1],
-      mode:'polygon'
+      mode: '',
+      event: null,
     }
   },
   mounted() {
@@ -29,21 +31,17 @@ export default {
       backgroundColor: 0x000000
     });
     document.getElementById("pixi").appendChild(this.pixi.view);
-    this.initDraw()
 
   },
   methods: {
-    initDraw(){
-      require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF',this,this.$refs.pixi)
-    },
-    changeMode(){
+    changeMode() {
       console.log(`../assets/draw/${this.mode}`)
-      require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF',this,this.$refs.pixi)
+      require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF', this, this.$refs.pixi)
     },
-    getPoints(val){
+    getPoints(val) {
       this.polygon = val
       console.log(this.polygon)
-    }
+    },
   }
 }
 </script>
