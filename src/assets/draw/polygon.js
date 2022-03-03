@@ -1,51 +1,53 @@
 import * as PIXI from "pixi.js";
 
-export function drawPolygon(color = '0xEF6644',app,pixi){
+export function drawPolygon(color,app,pixi){
   const borderline = new PIXI.Graphics();
   const polygonLine = new PIXI.Graphics();
   const line = new PIXI.Graphics();
   let canDraw = false
-  borderline.lineStyle(2,color,0.5)
-  line.lineStyle(2,color,0.5)
-  polygonLine.lineStyle(2, color, 0.5)
+  let polygon = []
+  borderline.lineStyle(2,color)
+  line.lineStyle(2,color)
+  polygonLine.lineStyle(2, color)
 
   function whenMouseDown(){
     canDraw = true
   }
+  function mouseMove(e){
+    if (!canDraw) return
+    borderline.clear()
+    borderline.lineStyle(2,color)
+    borderline.moveTo(polygon[polygon.length-2], polygon[polygon.length-1]);//x,y 开始
+    borderline.lineTo(e.offsetX,e.offsetY);
+    app.pixi.stage.addChild(borderline);
+  }
   function whenMouseUp(e){
     console.log(e.offsetX,e.offsetY);
-    app.polygon.push(e.offsetX,e.offsetY)
-    console.log(this.polygon);
-    if (Math.abs(e.offsetX - app.polygon[0])<= 10 &&  Math.abs(e.offsetY - app.polygon[1])<= 10 &&  app.polygon.length >4){
-      app.polygon[app.polygon.length-2] = app.polygon[0]
-      app.polygon[app.polygon.length-1] = app.polygon[1]
-      app.canDraw = false
+    polygon.push(e.offsetX,e.offsetY)
+
+    if (Math.abs(e.offsetX - polygon[0])<= 10 &&  Math.abs(e.offsetY - polygon[1])<= 10 &&  polygon.length >4){
+      polygon[polygon.length-2] = polygon[0]
+      polygon[polygon.length-1] = polygon[1]
+      canDraw = false
       drawPolygonLine()
     }
-    if (app.polygon.length > 2){
+    if (polygon.length > 2){
       drawLine()
     }
   }
   function drawPolygonLine(){
     app.pixi.stage.removeChild(borderline)
     app.pixi.stage.removeChild(line)
-    polygonLine.drawPolygon(this.polygon)
+    polygonLine.drawPolygon(polygon)
     app.pixi.stage.addChild(polygonLine);
-    app.polygon = []
-    app.canDraw = false
+    app.getPoints(polygon)
+    polygon = []
+    canDraw = false
   }
-  function mouseMove(e){
-    if (canDraw) return
-    console.log(app.polygon);
-    borderline.clear()
-    borderline.lineStyle(2,0xEF6644,0.5)
-    borderline.moveTo(app.polygon[app.polygon.length-2], app.polygon[app.polygon.length-1]);//x,y 开始
-    borderline.lineTo(e.offsetX,e.offsetY);
-    app.pixi.stage.addChild(borderline);
-  }
+
   function drawLine(){
-    line.moveTo(app.polygon[app.polygon.length-4],app.polygon[app.polygon.length-3])
-    line.lineTo(app.polygon[app.polygon.length-2],app.polygon[app.polygon.length-1])
+    line.moveTo(polygon[polygon.length-4],polygon[polygon.length-3])
+    line.lineTo(polygon[polygon.length-2],polygon[polygon.length-1])
     app.pixi.stage.addChild(line);
   }
 
