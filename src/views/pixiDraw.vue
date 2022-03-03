@@ -29,8 +29,13 @@ export default {
       backgroundColor: 0x000000
     });
     document.getElementById("pixi").appendChild(this.pixi.view);
+    this.initDraw()
+
   },
   methods: {
+    initDraw(){
+      require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF',this,this.$refs.pixi)
+    },
     changeMode(){
       console.log(`../assets/draw/${this.mode}`)
       require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF',this,this.$refs.pixi)
