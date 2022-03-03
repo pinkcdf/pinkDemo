@@ -68,6 +68,16 @@ export default {
           path: "/pixi",
           img: ''
         },
+        {
+          title: "pixi绘图",
+          path: "/pixiDraw",
+          img: ''
+        },
+        {
+          title: "three",
+          path: "/three",
+          img: ''
+        },
       ]
     };
   },
