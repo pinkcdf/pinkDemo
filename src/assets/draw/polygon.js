@@ -43,6 +43,7 @@ export function drawPolygon(color,app,pixi){
     app.getPoints(polygon)
     polygon = []
     canDraw = false
+    clearEvent()
   }
 
   function drawLine(){
@@ -51,7 +52,11 @@ export function drawPolygon(color,app,pixi){
     app.pixi.stage.addChild(line);
   }
 
-
+  function clearEvent(){
+    pixi.removeEventListener('mousedown',whenMouseDown)
+    pixi.removeEventListener('mouseup',whenMouseUp)
+    pixi.removeEventListener('mousemove',mouseMove)
+  }
 
   pixi.addEventListener('mousedown',whenMouseDown)
   pixi.addEventListener('mouseup',whenMouseUp)

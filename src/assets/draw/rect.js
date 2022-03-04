@@ -14,6 +14,7 @@ export function drawPolygon(color,app,pixi){
     function whenMouseUp(e){
         canDraw = false
         polygon = [0,0,0,0]
+        clearEvent()
     }
     function mouseMove(e){
         if (!canDraw)return
@@ -25,6 +26,12 @@ export function drawPolygon(color,app,pixi){
         console.log(e.offsetX,polygon)
         rectLine.endFill();
         app.pixi.stage.addChild(rectLine);
+    }
+
+    function clearEvent(){
+        pixi.removeEventListener('mousedown',whenMouseDown)
+        pixi.removeEventListener('mouseup',whenMouseUp)
+        pixi.removeEventListener('mousemove',mouseMove)
     }
 
     pixi.addEventListener('mousedown',whenMouseDown)

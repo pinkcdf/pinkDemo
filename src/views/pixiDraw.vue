@@ -11,7 +11,6 @@
 
 <script>
 import * as PIXI from "pixi.js";
-import {drawRect} from "../assets/draw/rect";
 
 export default {
   name: "pixiDraw",
@@ -21,28 +20,27 @@ export default {
       canDraw: false,
       polygon: [1],
       mode: '',
-      event: null,
     }
   },
   mounted() {
+    console.log(this.$refs.pixi)
     this.pixi = new PIXI.Application({
       width: 700,
       height: 700,
       backgroundColor: 0x000000
     });
-    document.getElementById("pixi").appendChild(this.pixi.view);
-
+    document.getElementById("pixi").appendChild(this.pixi.view)
   },
+
   methods: {
     changeMode() {
-      console.log(`../assets/draw/${this.mode}`)
       require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF', this, this.$refs.pixi)
     },
     getPoints(val) {
       this.polygon = val
       console.log(this.polygon)
     },
-  }
+  },
 }
 </script>
 
