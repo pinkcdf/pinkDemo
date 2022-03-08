@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 
 export function drawPolygon(color,app,pixi){
+  clearEvent()
   const borderline = new PIXI.Graphics();
   const polygonLine = new PIXI.Graphics();
   const line = new PIXI.Graphics();
@@ -11,9 +12,11 @@ export function drawPolygon(color,app,pixi){
   polygonLine.lineStyle(2, color)
 
   function whenMouseDown(){
+    if (app.mode !== 'polygon' ) return
     canDraw = true
   }
   function mouseMove(e){
+    if (app.mode !== 'polygon' ) return
     if (!canDraw) return
     borderline.clear()
     borderline.lineStyle(2,color)
@@ -22,6 +25,7 @@ export function drawPolygon(color,app,pixi){
     app.pixi.stage.addChild(borderline);
   }
   function whenMouseUp(e){
+    if (app.mode !== 'polygon' ) return
     console.log(e.offsetX,e.offsetY);
     polygon.push(e.offsetX,e.offsetY)
 
@@ -43,7 +47,6 @@ export function drawPolygon(color,app,pixi){
     app.getPoints(polygon)
     polygon = []
     canDraw = false
-    clearEvent()
   }
 
   function drawLine(){

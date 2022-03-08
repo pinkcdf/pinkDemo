@@ -20,6 +20,7 @@ export default {
       canDraw: false,
       polygon: [1],
       mode: '',
+
     }
   },
   mounted() {

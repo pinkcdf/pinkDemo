@@ -1,22 +1,26 @@
 import * as PIXI from "pixi.js";
 
 export function drawPolygon(color,app,pixi){
+    clearEvent()
     const rectLine = new PIXI.Graphics();
     rectLine.lineStyle(2,color)
     let canDraw = false
     let polygon = [0,0,0,0]
 
     function whenMouseDown(e){
+        if (app.mode !== 'rect' ) return
         canDraw = true
         polygon[0] = e.offsetX
         polygon[1] = e.offsetY
     }
     function whenMouseUp(e){
+        if (app.mode !== 'rect' ) return
         canDraw = false
         polygon = [0,0,0,0]
-        clearEvent()
+        // clearEvent()
     }
     function mouseMove(e){
+        if (app.mode !== 'rect' ) return
         if (!canDraw)return
         rectLine.clear()
         rectLine.lineStyle(2,color)
