@@ -64,7 +64,7 @@ export default {
           img: ''
         },
         {
-          title: "pixi的使用",
+          title: "demo",
           path: "/pixi",
           img: ''
         },

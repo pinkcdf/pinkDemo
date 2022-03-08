@@ -1,7 +1,5 @@
 <template>
-  <div id="three" ref="three">
-
-  </div>
+  <div id="three" ref="three"></div>
 </template>
 
 <script>
@@ -33,7 +31,7 @@ export default {
       let width = this.$refs.three.clientWidth; //窗口宽度
       let height = this.$refs.three.clientHeight; //窗口高度
       let k = width / height; //窗口宽高比
-      let s = 300; //三维场景显示范围控制系数，系数越大，显示的范围越大
+      let s = 30; //三维场景显示范围控制系数，系数越大，显示的范围越大
       //创建相机对象
       this.camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
       this.camera.position.set(100, 100, 100); //设置相机位置
@@ -44,7 +42,7 @@ export default {
        */
       this.renderer = new THREE.WebGLRenderer();
       this.renderer.setSize(width, height);//设置渲染区域尺寸
-      this.renderer.setClearColor(0xb9d3ff, 5); //设置背景颜色
+      this.renderer.setClearColor(0x000000, 5); //设置背景颜色
       document.getElementById("three").appendChild(this.renderer.domElement); //body元素中插入canvas对象
       //执行渲染操作   指定场景、相机作为参数
       this.renderer.render(this.scene, this.camera);
@@ -52,11 +50,13 @@ export default {
       this.loadLight()
       this.loadObj()
       this.loadHelper()
+      // this.loadGltf()
       this.loadChange()
       this.render();
 
     },
 
+    //创建鼠标控制对象
     loadChange(){
       let controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);//创建控件对象
       controls.addEventListener('change', this.render)
@@ -70,16 +70,16 @@ export default {
 
     loadLight(){
       //点光源
-      let point = new THREE.PointLight(0x080820);
-      point.position.set(500, 500, 1000); //点光源位置
+      let point = new THREE.PointLight(0x800080);
+      point.position.set(2000, 2000, 1000); //点光源位置
       this.scene.add(point); //点光源添加到场景中
 
       // 点光源2  位置和point关于原点对称
-      let point2 = new THREE.PointLight(0xffffff);
-      point2.position.set(-400, -200, -300); //点光源位置
-      this.scene.add(point2); //点光源添加到场景中
+      // let point2 = new THREE.PointLight(0xffffff);
+      // point2.position.set(-400, -200, -300); //点光源位置
+      // this.scene.add(point2); //点光源添加到场景中
 
-      let hemiLigth = new THREE.HemisphereLight(0xffeeb1, 0x080820, 2)
+      let hemiLigth = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1)
       this.scene.add(hemiLigth)
       //环境光
       let ambient = new THREE.AmbientLight(0x000000);
@@ -91,14 +91,14 @@ export default {
       let that = this
       let objLoader = new OBJLoader();
       let mtlLoader = new MTLLoader();
-      mtlLoader.load("/static/1.mtl", function (materials) {
-        materials.preload();
-        objLoader.setMaterials(materials);
+      // mtlLoader.load("/static/666.mtl", function (materials) {
+      //   materials.preload();
+      //   objLoader.setMaterials(materials);
         objLoader.load(
-            "static/1.obj",
+            "static/Aoi.obj",
             function (obj) {
               obj.position.set(0, 0, 0);
-              obj.scale.set(100, 100, 100);
+              obj.scale.set(0.1, 0.1, 0.1);
               that.scene.add(obj);
               that.renderer.render(that.scene, that.camera)
             },
@@ -109,20 +109,22 @@ export default {
               console.log(error);
             }
         );
-      })
+      // })
     },
 
     //加载Gltf
     loadGltf() {
       const loader = new GLTFLoader();
-      loader.load('/static/scene.gltf',
+      loader.load('/static/dance.gltf',
           //成功的回调
           function (gltf) {
             //将模型加入到场景中
-            gltf.scene.scale.set(100, 100, 100)
+            gltf.position.set(0, 0, 0);
+            gltf.scale.set(0.1, 0.1, 0.1);
             scene.add(gltf.scene);
             //渲染场景
             renderer.render(scene, camera);
+            console.log("成功")
           },
           //加载过程中的回调
           function (xhr) {

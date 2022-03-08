@@ -1,10 +1,12 @@
 <template>
   <div>
+    <div @click="changPosition"> 111</div>
     <el-radio-group @change="changeMode" v-model="mode">
+      <el-radio-button label="move">移动</el-radio-button>
       <el-radio-button label="polygon">多边形</el-radio-button>
       <el-radio-button label="rect">矩形</el-radio-button>
     </el-radio-group>
-    <div ref="pixi" id="pixi" style="z-index:-1;background-color: #888888"></div>
+    <div ref="pixi" id="pixi"></div>
 
   </div>
 </template>
@@ -17,34 +19,77 @@ export default {
   data() {
     return {
       pixi: null,
+      container: null,
       canDraw: false,
       polygon: [1],
       mode: '',
+      img: require('../assets/img/people.png'),
+      sprite: null,
+      zoom: 1,
+      move:{x:0,y:0}
 
     }
   },
   mounted() {
     console.log(this.$refs.pixi)
     this.pixi = new PIXI.Application({
-      width: 700,
-      height: 700,
+      width: this.$refs.pixi.clientWidth,
+      height: this.$refs.pixi.clientHeight,
       backgroundColor: 0x000000
     });
+    this.container = new PIXI.Container();
     document.getElementById("pixi").appendChild(this.pixi.view)
+    window.onresize = () => {
+      this.changeWH()
+    }
+    this.loadImg()
+    this.$refs.pixi.addEventListener('wheel',this.eventWheel)
+    window.addEventListener('keydown',this.keydown)
   },
 
   methods: {
+    changeWH() {
+      this.pixi.renderer.autoResize = true;
+      this.pixi.renderer.resize(this.$refs.pixi.clientWidth, this.$refs.pixi.clientHeight);
+    },
     changeMode() {
       require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF', this, this.$refs.pixi)
     },
     getPoints(val) {
       this.polygon = val
-      console.log(this.polygon)
     },
-  },
+    loadImg() {
+      this.pixi.loader.add(this.img).load(() => {
+        this.sprite = new PIXI.Sprite(this.pixi.loader.resources[this.img].texture)
+        this.container.addChild(this.sprite)
+        this.pixi.stage.addChild(this.container)
+      })
+    },
+    changPosition() {
+      this.container.position.set(0,0)
+    },
+    changeZoom() {
+      this.container.scale.set(this.zoom, this.zoom)
+    },
+    eventWheel(e) {
+      console.log(e)
+      if (e.deltaY > 0 && this.zoom > 0.1) {
+        this.zoom = this.zoom - 0.02
+        this.changeZoom()
+      } else if(e.deltaY < 0 && this.zoom < 1.9) {
+        this.zoom = this.zoom + 0.02
+        this.changeZoom()
+      }
+    },
+
+  }
 }
 </script>
 
 <style scoped>
-
+#pixi {
+  background-color: #888888;
+  width: 100%;
+  height: 500px;
+}
 </style>
