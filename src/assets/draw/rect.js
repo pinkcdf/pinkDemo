@@ -18,7 +18,7 @@ export function drawPolygon(color, app, pixi) {
 
     function whenMouseUp(e) {
         if (app.mode !== 'rect') return
-        rectLineDraw.drawRect(polygon[0], polygon[1], polygon[2] - polygon[0], polygon[3] - polygon[1]);
+        rectLineDraw.drawRect(polygon[0] - app.move.x, polygon[1]- app.move.y, polygon[2] - polygon[0], polygon[3] - polygon[1]);
         rectLineDraw.endFill();
         app.container.addChild(rectLineDraw)
         app.pixi.stage.addChild(app.container);
@@ -28,14 +28,13 @@ export function drawPolygon(color, app, pixi) {
     }
 
     function mouseMove(e) {
-        console.log(1111)
         if (app.mode !== 'rect') return
         if (!canDraw) return
         rectLine.clear()
         rectLine.lineStyle(2, color)
         polygon[2] = e.offsetX
         polygon[3] = e.offsetY
-        rectLine.drawRect(polygon[0], polygon[1], polygon[2] - polygon[0], polygon[3] - polygon[1])
+        rectLine.drawRect(polygon[0] - app.move.x, polygon[1]- app.move.y, polygon[2] - polygon[0], polygon[3] - polygon[1])
         rectLine.endFill();
         app.container.addChild(rectLine)
         app.pixi.stage.addChild(app.container);

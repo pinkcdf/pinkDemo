@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="changPosition"> 111</div>
+<!--    <div @click="changPosition"> 111</div>-->
     <el-radio-group @change="changeMode" v-model="mode">
       <el-radio-button label="move">移动</el-radio-button>
       <el-radio-button label="polygon">多边形</el-radio-button>
@@ -35,7 +35,8 @@ export default {
     this.pixi = new PIXI.Application({
       width: this.$refs.pixi.clientWidth,
       height: this.$refs.pixi.clientHeight,
-      backgroundColor: 0x000000
+      backgroundColor: 0x000000,
+      resolution:1,
     });
     this.container = new PIXI.Container();
     document.getElementById("pixi").appendChild(this.pixi.view)
@@ -44,20 +45,23 @@ export default {
     }
     this.loadImg()
     this.$refs.pixi.addEventListener('wheel',this.eventWheel)
-    window.addEventListener('keydown',this.keydown)
   },
 
   methods: {
+
     changeWH() {
       this.pixi.renderer.autoResize = true;
       this.pixi.renderer.resize(this.$refs.pixi.clientWidth, this.$refs.pixi.clientHeight);
     },
+
     changeMode() {
       require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF', this, this.$refs.pixi)
     },
+
     getPoints(val) {
       this.polygon = val
     },
+
     loadImg() {
       this.pixi.loader.add(this.img).load(() => {
         this.sprite = new PIXI.Sprite(this.pixi.loader.resources[this.img].texture)
@@ -65,14 +69,12 @@ export default {
         this.pixi.stage.addChild(this.container)
       })
     },
-    changPosition() {
-      this.container.position.set(0,0)
-    },
+
     changeZoom() {
       this.container.scale.set(this.zoom, this.zoom)
     },
+
     eventWheel(e) {
-      console.log(e)
       if (e.deltaY > 0 && this.zoom > 0.1) {
         this.zoom = this.zoom - 0.02
         this.changeZoom()
@@ -91,5 +93,6 @@ export default {
   background-color: #888888;
   width: 100%;
   height: 500px;
+  overflow: hidden;
 }
 </style>

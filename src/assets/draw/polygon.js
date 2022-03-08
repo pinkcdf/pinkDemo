@@ -42,8 +42,16 @@ export function drawPolygon(color,app,pixi){
   function drawPolygonLine(){
     app.pixi.stage.removeChild(borderline)
     app.pixi.stage.removeChild(line)
+    for (let i in polygon){
+      if (i % 2 === 0){
+        polygon[i] = polygon[i] - app.move.x
+      }else {
+        polygon[i] = polygon[i] - app.move.y
+      }
+    }
     polygonLine.drawPolygon(polygon)
-    app.pixi.stage.addChild(polygonLine);
+    app.container.addChild(polygonLine)
+    app.pixi.stage.addChild(app.container);
     app.getPoints(polygon)
     polygon = []
     canDraw = false

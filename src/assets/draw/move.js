@@ -5,9 +5,10 @@ export function drawPolygon(color, app, pixi) {
     let canMove = false
     let start = {x: 0, y: 0}
     let end = {x: 0, y: 0}
-    let isFirst = true
     let moveX
     let moveY
+    end.x = app.move.x
+    end.y = app.move.y
 
     function whenMouseDown(e) {
         if (app.mode !== 'move') return
@@ -21,6 +22,8 @@ export function drawPolygon(color, app, pixi) {
         canMove = false
         end.x = moveX
         end.y = moveY
+        app.move.x = end.x
+        app.move.y = end.y
     }
 
     function mouseMove(e) {
@@ -29,7 +32,6 @@ export function drawPolygon(color, app, pixi) {
         moveX = e.offsetX - start.x + end.x
         moveY = e.offsetY - start.y + end.y
         app.container.position.set(moveX, moveY)
-        console.log(end.x, end.y)
     }
 
     function clearEvent() {
