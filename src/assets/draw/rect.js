@@ -1,9 +1,16 @@
 import * as PIXI from "pixi.js";
 
+const rectLine = new PIXI.Graphics();
+const rectLineDraw = new PIXI.Graphics();
+
+export function clearDraw(color){
+    rectLineDraw.clear()
+    rectLine.lineStyle(2, color)
+    rectLineDraw.lineStyle(2, color)
+}
+
 export function drawPolygon(color, app, pixi) {
     clearEvent()
-    const rectLine = new PIXI.Graphics();
-    const rectLineDraw = new PIXI.Graphics();
     rectLine.lineStyle(2, color)
     rectLineDraw.lineStyle(2, color)
     let canDraw = false

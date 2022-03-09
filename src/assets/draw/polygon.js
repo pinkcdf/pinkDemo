@@ -1,12 +1,22 @@
 import * as PIXI from "pixi.js";
 
+const borderline = new PIXI.Graphics()
+const polygonLine = new PIXI.Graphics()
+const line = new PIXI.Graphics()
+
+
+export function clearDraw(color){
+  polygonLine.clear()
+  borderline.lineStyle(2,color)
+  line.lineStyle(2,color)
+  polygonLine.lineStyle(2, color)
+}
+
 export function drawPolygon(color,app,pixi){
-  clearEvent()
-  const borderline = new PIXI.Graphics();
-  const polygonLine = new PIXI.Graphics();
-  const line = new PIXI.Graphics();
+  let time
   let canDraw = false
   let polygon = []
+  clearEvent()
   borderline.lineStyle(2,color)
   line.lineStyle(2,color)
   polygonLine.lineStyle(2, color)
@@ -14,6 +24,7 @@ export function drawPolygon(color,app,pixi){
   function whenMouseDown(){
     if (app.mode !== 'polygon' ) return
     canDraw = true
+
   }
   function mouseMove(e){
     if (app.mode !== 'polygon' ) return
@@ -27,15 +38,23 @@ export function drawPolygon(color,app,pixi){
   function whenMouseUp(e){
     if (app.mode !== 'polygon' ) return
     polygon.push(e.offsetX,e.offsetY)
-    if (Math.abs(e.offsetX - polygon[0])<= 10 &&  Math.abs(e.offsetY - polygon[1])<= 10 &&  polygon.length >4){
+    if(new Date() - time < 200 &&  polygon.length >4){
       polygon[polygon.length-2] = polygon[0]
       polygon[polygon.length-1] = polygon[1]
       canDraw = false
       drawPolygonLine()
+    }else {
+      if (Math.abs(e.offsetX - polygon[0])<= 10 &&  Math.abs(e.offsetY - polygon[1])<= 10 &&  polygon.length >4){
+        polygon[polygon.length-2] = polygon[0]
+        polygon[polygon.length-1] = polygon[1]
+        canDraw = false
+        drawPolygonLine()
+      }
     }
     if (polygon.length > 2){
       drawLine()
     }
+    time = new Date()
   }
   function drawPolygonLine(){
     app.pixi.stage.removeChild(borderline)
@@ -61,6 +80,11 @@ export function drawPolygon(color,app,pixi){
     line.moveTo(polygon[polygon.length-4],polygon[polygon.length-3])
     line.lineTo(polygon[polygon.length-2],polygon[polygon.length-1])
     app.pixi.stage.addChild(line);
+  }
+
+  function clearPolygonline(){
+    polygonLine.clear()
+    polygonLine.lineStyle(2, color)
   }
 
   function clearEvent(){
