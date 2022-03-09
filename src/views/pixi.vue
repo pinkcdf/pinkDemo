@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div style="position: absolute;background-color: #888888; width: 1000px;height: 800px;top: 100px">
+    <div id="stage">
       <div class="player" v-for="(item,index) in player" :style="item.position">
         <div style="width: 200px;height:40px;display: flex;justify-content: center;align-items: center;z-index: 2;">
           <span style="z-index: 2">{{ item.text }}</span>
@@ -11,11 +11,11 @@
             style="z-index: 1;width: 100px;height: 30px;background-color: rgba(7,0,0,0.81);border-radius: 50%;position: relative;top: -20px;"></div>
       </div>
     </div>
-    <button @click="addPlayer">新人入场</button>
-    <button @click="sayHi">mac喊麦</button>
-    <button @click="delText">清空喊麦</button>
+<!--    <button @click="addPlayer">新人入场</button>-->
+<!--    <button @click="sayHi">mac喊麦</button>-->
+<!--    <button @click="delText">清空喊麦</button>-->
     <!--        <button @click="shoutSomeone">固定某人发言</button>-->
-    <button @click="change">固定某人发言</button>
+<!--    <button @click="change">固定某人发言</button>-->
 
   </div>
 </template>
@@ -116,6 +116,13 @@ export default {
 </script>
 
 <style scoped>
+#stage {
+  position: absolute;
+  background-color: rgba(136, 136, 136, 0);
+  width: 1000px;
+  height: 800px;
+  top: 100px
+}
 
 .player {
   display: flex;

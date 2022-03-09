@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js";
 const rectLine = new PIXI.Graphics();
 const rectLineDraw = new PIXI.Graphics();
 
-export function clearDraw(color){
+export function clearDraw(color) {
     rectLineDraw.clear()
     rectLine.lineStyle(2, color)
     rectLineDraw.lineStyle(2, color)
@@ -19,15 +19,19 @@ export function drawPolygon(color, app, pixi) {
     function whenMouseDown(e) {
         if (app.mode !== 'rect') return
         canDraw = true
-        console.log(app.zoom)
         polygon[0] = e.offsetX
         polygon[1] = e.offsetY
     }
 
     function whenMouseUp(e) {
         if (app.mode !== 'rect') return
-        rectLineDraw.drawRect((polygon[0] - app.move.x)/app.zoom, (polygon[1] - app.move.y)/app.zoom, (polygon[2] - polygon[0])/app.zoom, (polygon[3] - polygon[1])/app.zoom);
+        if (polygon[0] === e.offsetX && polygon[1] === e.offsetY) {
+            canDraw = false
+            return;
+        }
+        rectLineDraw.drawRect((polygon[0] - app.move.x) / app.zoom, (polygon[1] - app.move.y) / app.zoom, (polygon[2] - polygon[0]) / app.zoom, (polygon[3] - polygon[1]) / app.zoom);
         rectLineDraw.endFill();
+        console.log((polygon[0] - app.move.x) / app.zoom, (polygon[1] - app.move.y) / app.zoom, (polygon[2] - polygon[0]) / app.zoom, (polygon[3] - polygon[1]) / app.zoom)
         app.container.addChild(rectLineDraw)
         app.pixi.stage.addChild(app.container);
         canDraw = false
@@ -42,7 +46,7 @@ export function drawPolygon(color, app, pixi) {
         rectLine.lineStyle(2, color)
         polygon[2] = e.offsetX
         polygon[3] = e.offsetY
-        rectLine.drawRect((polygon[0] - app.move.x)/app.zoom, (polygon[1] - app.move.y)/app.zoom, (polygon[2] - polygon[0])/app.zoom, (polygon[3] - polygon[1])/app.zoom)
+        rectLine.drawRect((polygon[0] - app.move.x) / app.zoom, (polygon[1] - app.move.y) / app.zoom, (polygon[2] - polygon[0]) / app.zoom, (polygon[3] - polygon[1]) / app.zoom)
         rectLine.endFill();
         app.container.addChild(rectLine)
         app.pixi.stage.addChild(app.container);

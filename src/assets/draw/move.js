@@ -1,12 +1,10 @@
-import * as PIXI from "pixi.js";
-
 export function drawPolygon(color, app, pixi) {
     clearEvent()
     let canMove = false
     let start = {x: 0, y: 0}
     let end = {x: 0, y: 0}
-    let moveX  = app.move.x
-    let moveY  = app.move.y
+    let moveX = app.move.x
+    let moveY = app.move.y
     end.x = app.move.x
     end.y = app.move.y
 
@@ -34,9 +32,6 @@ export function drawPolygon(color, app, pixi) {
         app.container.position.set(moveX, moveY)
     }
 
-    function text(){
-        console.log(111111)
-    }
 
     function clearEvent() {
         pixi.removeEventListener('mousedown', whenMouseDown)

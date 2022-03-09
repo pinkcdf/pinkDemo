@@ -12,9 +12,9 @@
           <el-radio-button label="rect">清除矩形</el-radio-button>
         </el-radio-group>
       </div>
-
     </div>
-
+<!--    <button @click="drawPolygonOnline"> 123</button>-->
+<!--    <button @click="drawRectOnline"> 123</button>-->
     <div ref="pixi" id="pixi"></div>
 
   </div>
@@ -38,11 +38,11 @@ export default {
       rectLineDraw: null,
       zoom: 1,
       move: {x: 0, y: 0},
-
+      polygonArr:[[181, 223, 257, 223, 225, 328.5, 151.5, 330.5, 181, 223],[147, 81, 227, 82, 216, 115, 140, 114, 147, 81]],
+      rectArr:[[173, 219, 75, 113],[21 ,58 ,208 ,64]]
     }
   },
   mounted() {
-    console.log(this.$refs.pixi)
     this.pixi = new PIXI.Application({
       width: this.$refs.pixi.clientWidth,
       height: this.$refs.pixi.clientHeight,
@@ -73,14 +73,14 @@ export default {
     },
 
     clear() {
-      if (this.clearMode !== ''){
+      if (this.clearMode !== '') {
         require(`../assets/draw/${this.clearMode}`).clearDraw('0xFFFFFF')
         this.clearMode = ''
       }
     },
 
     getPoints(val) {
-      console.log(this.container)
+      console.log(val)
     },
 
     loadImg() {
@@ -89,7 +89,6 @@ export default {
         this.container.position.set(this.$refs.pixi.clientWidth / 2 - this.sprite.width / 2, this.$refs.pixi.clientHeight / 2 - this.sprite.height / 2)
         this.move.x = this.$refs.pixi.clientWidth / 2 - this.sprite.width / 2
         this.move.y = this.$refs.pixi.clientHeight / 2 - this.sprite.height / 2
-        console.log(this.move)
         this.sprite.interactive = true//响应交互
         this.sprite.buttonMode = true
         this.container.addChild(this.sprite)
@@ -119,12 +118,28 @@ export default {
         this.changeZoom()
       }
     },
-    clearPolygonLine() {
-      require(`../assets/draw/polygon`).clearPolygonLine('0xFFFFFF')
+
+    drawPolygonOnline() {
+      const polygonLineDraw = new PIXI.Graphics();
+      polygonLineDraw.lineStyle(2, 0xffffff)
+      for (let i in this.polygonArr){
+        polygonLineDraw.drawPolygon(...this.polygonArr[i]);
+        this.container.addChild(polygonLineDraw)
+      }
+      this.pixi.stage.addChild( this.container)
     },
-    clearRectLine() {
-      require(`../assets/draw/rect`).clearRectLineDraw('0xFFFFFF')
-    }
+
+    drawRectOnline() {
+      const rectLineDraw = new PIXI.Graphics();
+      rectLineDraw.lineStyle(2, 0xffffff)
+      for (let i in this.rectArr){
+        rectLineDraw.drawRect(...this.rectArr[i]);
+        rectLineDraw.endFill();
+        this.container.addChild(rectLineDraw)
+      }
+      this.pixi.stage.addChild( this.container)
+    },
+
   }
 }
 </script>
@@ -146,10 +161,10 @@ export default {
   display: flex;
 }
 
-.clear{
+.clear {
   margin-left: 10px;
-  border-left: #f5eded solid 1px;
-  padding:0 10px;
+  border-left: #cec6c6 solid 1px;
+  padding: 0 10px;
 }
 
 /deep/ .el-radio-button .el-radio-button__inner {
@@ -173,7 +188,7 @@ export default {
   color: #888888;
 }
 
-/deep/ .el-button{
+/deep/ .el-button {
   border-radius: 0;
 }
 </style>
