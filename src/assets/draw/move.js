@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 
 export function drawPolygon(color, app, pixi) {
     clearEvent()
+    console.log(pixi)
     let canMove = false
     let start = {x: 0, y: 0}
     let end = {x: 0, y: 0}

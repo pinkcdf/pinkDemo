@@ -1,11 +1,13 @@
 <template>
-  <div>
-<!--    <div @click="changPosition"> 111</div>-->
-    <el-radio-group @change="changeMode" v-model="mode">
-      <el-radio-button label="move">移动</el-radio-button>
-      <el-radio-button label="polygon">多边形</el-radio-button>
-      <el-radio-button label="rect">矩形</el-radio-button>
-    </el-radio-group>
+  <div style="width: 100%;height: 100%">
+    <div style="width: 100%;background-color: #070000;border-bottom: #888888 solid 1px;box-sizing: border-box;padding: 4px 4px">
+      <el-radio-group @change="changeMode" v-model="mode" size="mini" fill="white" text-color="black">
+        <el-radio-button label="move">移动</el-radio-button>
+        <el-radio-button label="polygon">多边形</el-radio-button>
+        <el-radio-button label="rect">矩形</el-radio-button>
+      </el-radio-group>
+    </div>
+
     <div ref="pixi" id="pixi"></div>
 
   </div>
@@ -22,11 +24,11 @@ export default {
       container: null,
       canDraw: false,
       polygon: [1],
-      mode: '',
+      mode: 'move',
       img: require('../assets/img/people.png'),
       sprite: null,
       zoom: 1,
-      move:{x:0,y:0}
+      move: {x: 0, y: 0}
 
     }
   },
@@ -36,7 +38,9 @@ export default {
       width: this.$refs.pixi.clientWidth,
       height: this.$refs.pixi.clientHeight,
       backgroundColor: 0x000000,
-      resolution:1,
+      resolution: 1,
+      autoDensity: true,
+      antialias: true
     });
     this.container = new PIXI.Container();
     document.getElementById("pixi").appendChild(this.pixi.view)
@@ -44,7 +48,8 @@ export default {
       this.changeWH()
     }
     this.loadImg()
-    this.$refs.pixi.addEventListener('wheel',this.eventWheel)
+    this.$refs.pixi.addEventListener('wheel', this.eventWheel)
+    this.changeMode()
   },
 
   methods: {
@@ -75,11 +80,19 @@ export default {
     },
 
     eventWheel(e) {
-      if (e.deltaY > 0 && this.zoom > 0.1) {
-        this.zoom = this.zoom - 0.02
+      if (e.deltaY > 0) {
+        this.zoom = this.zoom - 0.05
         this.changeZoom()
-      } else if(e.deltaY < 0 && this.zoom < 1.9) {
-        this.zoom = this.zoom + 0.02
+      } else if (e.deltaY < 0) {
+        this.zoom = this.zoom + 0.05
+        this.changeZoom()
+      }
+      if (this.zoom > 2) {
+        this.zoom = 2
+        this.changeZoom()
+      }
+      if (this.zoom < 0.5) {
+        this.zoom = 0.5
         this.changeZoom()
       }
     },
@@ -92,7 +105,25 @@ export default {
 #pixi {
   background-color: #888888;
   width: 100%;
-  height: 500px;
+  height: calc(100% - 100px);
   overflow: hidden;
+}
+/deep/ .el-radio-button .el-radio-button__inner{
+  background-color: #282626;
+  border-radius: 0 0 0 0;
+  border: none;
+  color: #888888;
+}
+/deep/.el-radio-button:first-child .el-radio-button__inner{
+  background-color: #282626;
+  border-radius: 0 0 0 0;
+  border: none;
+  color: #888888;
+}
+/deep/.el-radio-button:last-child .el-radio-button__inner{
+  background-color: #282626;
+  border-radius: 0 0 0 0;
+  border: none;
+  color: #888888;
 }
 </style>

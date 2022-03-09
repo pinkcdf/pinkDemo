@@ -26,9 +26,7 @@ export function drawPolygon(color,app,pixi){
   }
   function whenMouseUp(e){
     if (app.mode !== 'polygon' ) return
-    console.log(e.offsetX,e.offsetY);
     polygon.push(e.offsetX,e.offsetY)
-
     if (Math.abs(e.offsetX - polygon[0])<= 10 &&  Math.abs(e.offsetY - polygon[1])<= 10 &&  polygon.length >4){
       polygon[polygon.length-2] = polygon[0]
       polygon[polygon.length-1] = polygon[1]
@@ -44,15 +42,17 @@ export function drawPolygon(color,app,pixi){
     app.pixi.stage.removeChild(line)
     for (let i in polygon){
       if (i % 2 === 0){
-        polygon[i] = polygon[i] - app.move.x
+        polygon[i] = (polygon[i] - app.move.x)/app.zoom
       }else {
-        polygon[i] = polygon[i] - app.move.y
+        polygon[i] = (polygon[i] - app.move.y)/app.zoom
       }
     }
     polygonLine.drawPolygon(polygon)
     app.container.addChild(polygonLine)
     app.pixi.stage.addChild(app.container);
     app.getPoints(polygon)
+    line.clear()
+    line.lineStyle(2,color)
     polygon = []
     canDraw = false
   }
