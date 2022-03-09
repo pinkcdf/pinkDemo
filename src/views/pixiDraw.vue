@@ -2,19 +2,20 @@
   <div style="width: 100%;height: 100%">
 
     <div id="tool">
-
-      <el-radio-group @change="changeMode" v-model="mode" size="mini" fill="white" text-color="black">
-        <el-radio-button label="move">移动</el-radio-button>
-        <el-radio-button label="polygon">多边形</el-radio-button>
-        <el-radio-button label="rect">矩形</el-radio-button>
-      </el-radio-group>
-
-      <div class="clear">
-        <el-radio-group @change="clear" v-model="clearMode" size="mini" fill="white" text-color="black">
-          <el-radio-button label="polygon">清除多边形</el-radio-button>
-          <el-radio-button label="rect">清除矩形</el-radio-button>
+      <div style="display: flex">
+        <el-radio-group @change="changeMode" v-model="mode" size="mini" fill="white" text-color="black">
+          <el-radio-button label="move">移动</el-radio-button>
+          <el-radio-button label="polygon">多边形</el-radio-button>
+          <el-radio-button label="rect">矩形</el-radio-button>
         </el-radio-group>
+        <div class="clear">
+          <el-radio-group @change="clear" v-model="clearMode" size="mini" fill="white" text-color="black">
+            <el-radio-button label="polygon">清除多边形</el-radio-button>
+            <el-radio-button label="rect">清除矩形</el-radio-button>
+          </el-radio-group>
+        </div>
       </div>
+
       <el-button size="mini" type="info" @click="downLoadImg">下载</el-button>
     </div>
 <!--    <button @click="drawPolygonOnline"> 123</button>-->
@@ -95,8 +96,10 @@ export default {
         this.container.position.set(this.$refs.pixi.clientWidth / 2 - this.sprite.width / 2, this.$refs.pixi.clientHeight / 2 - this.sprite.height / 2)
         this.move.x = this.$refs.pixi.clientWidth / 2 - this.sprite.width / 2
         this.move.y = this.$refs.pixi.clientHeight / 2 - this.sprite.height / 2
-        this.sprite.interactive = true//响应交互
-        this.sprite.buttonMode = true
+
+        // this.sprite.interactive = true//响应交互
+        // this.sprite.buttonMode = true
+
         this.container.addChild(this.sprite)
         console.log(this.sprite.x)
         this.pixi.stage.addChild(this.container)
@@ -179,12 +182,14 @@ export default {
 }
 
 #tool {
+  position: static;
   width: 100%;
   background-color: #070000;
   border-bottom: #888888 solid 1px;
   box-sizing: border-box;
   padding: 4px 4px;
   display: flex;
+  justify-content: space-between;
 }
 
 .clear {
