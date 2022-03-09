@@ -31,7 +31,7 @@ export default {
       let width = this.$refs.three.clientWidth; //窗口宽度
       let height = this.$refs.three.clientHeight; //窗口高度
       let k = width / height; //窗口宽高比
-      let s = 30; //三维场景显示范围控制系数，系数越大，显示的范围越大
+      let s = 10; //三维场景显示范围控制系数，系数越大，显示的范围越大
       //创建相机对象
       this.camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
       this.camera.position.set(100, 100, 100); //设置相机位置
@@ -75,9 +75,9 @@ export default {
       this.scene.add(point); //点光源添加到场景中
 
       // 点光源2  位置和point关于原点对称
-      // let point2 = new THREE.PointLight(0xffffff);
-      // point2.position.set(-400, -200, -300); //点光源位置
-      // this.scene.add(point2); //点光源添加到场景中
+      let point2 = new THREE.PointLight(0xffffff);
+      point2.position.set(-400, -200, -300); //点光源位置
+      this.scene.add(point2); //点光源添加到场景中
 
       let hemiLigth = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1)
       this.scene.add(hemiLigth)

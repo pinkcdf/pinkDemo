@@ -29,9 +29,9 @@ export function drawPolygon(color, app, pixi) {
             canDraw = false
             return;
         }
-        rectLineDraw.drawRect((polygon[0] - app.move.x) / app.zoom, (polygon[1] - app.move.y) / app.zoom, (polygon[2] - polygon[0]) / app.zoom, (polygon[3] - polygon[1]) / app.zoom);
+        rectLineDraw.drawRect(countPoint(polygon[0]), countPoint(polygon[1]), countPoint(polygon[2] - polygon[0]), countPoint(polygon[3] - polygon[1]));
         rectLineDraw.endFill();
-        console.log((polygon[0] - app.move.x) / app.zoom, (polygon[1] - app.move.y) / app.zoom, (polygon[2] - polygon[0]) / app.zoom, (polygon[3] - polygon[1]) / app.zoom)
+        console.log(countPoint(polygon[0]), countPoint(polygon[1]), countPoint(polygon[2] - polygon[0]), countPoint(polygon[3] - polygon[1]))
         app.container.addChild(rectLineDraw)
         app.pixi.stage.addChild(app.container);
         canDraw = false
@@ -46,10 +46,14 @@ export function drawPolygon(color, app, pixi) {
         rectLine.lineStyle(2, color)
         polygon[2] = e.offsetX
         polygon[3] = e.offsetY
-        rectLine.drawRect((polygon[0] - app.move.x) / app.zoom, (polygon[1] - app.move.y) / app.zoom, (polygon[2] - polygon[0]) / app.zoom, (polygon[3] - polygon[1]) / app.zoom)
+        rectLine.drawRect(countPoint(polygon[0]), countPoint(polygon[1]), countPoint(polygon[2] - polygon[0]), countPoint(polygon[3] - polygon[1]))
         rectLine.endFill();
         app.container.addChild(rectLine)
         app.pixi.stage.addChild(app.container);
+    }
+
+    function countPoint(val){
+        return (val - app.move.x) / app.zoom
     }
 
     function clearEvent() {
