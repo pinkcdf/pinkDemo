@@ -1,20 +1,25 @@
 <template>
   <div style="width: 100%;height: 100%">
+
     <div id="tool">
+
       <el-radio-group @change="changeMode" v-model="mode" size="mini" fill="white" text-color="black">
         <el-radio-button label="move">移动</el-radio-button>
         <el-radio-button label="polygon">多边形</el-radio-button>
         <el-radio-button label="rect">矩形</el-radio-button>
       </el-radio-group>
+
       <div class="clear">
         <el-radio-group @change="clear" v-model="clearMode" size="mini" fill="white" text-color="black">
           <el-radio-button label="polygon">清除多边形</el-radio-button>
           <el-radio-button label="rect">清除矩形</el-radio-button>
         </el-radio-group>
       </div>
+      <el-button size="mini" type="info" @click="downLoadImg">下载</el-button>
     </div>
 <!--    <button @click="drawPolygonOnline"> 123</button>-->
 <!--    <button @click="drawRectOnline"> 123</button>-->
+
     <div ref="pixi" id="pixi"></div>
 
   </div>
@@ -38,6 +43,7 @@ export default {
       rectLineDraw: null,
       zoom: 1,
       move: {x: 0, y: 0},
+      //测试
       polygonArr:[[181, 223, 257, 223, 225, 328.5, 151.5, 330.5, 181, 223],[147, 81, 227, 82, 216, 115, 140, 114, 147, 81]],
       rectArr:[[173, 219, 75, 113],[21 ,58 ,208 ,64]]
     }
@@ -92,6 +98,7 @@ export default {
         this.sprite.interactive = true//响应交互
         this.sprite.buttonMode = true
         this.container.addChild(this.sprite)
+        console.log(this.sprite.x)
         this.pixi.stage.addChild(this.container)
         this.changeMode()
       })
@@ -140,6 +147,25 @@ export default {
       this.pixi.stage.addChild( this.container)
     },
 
+    downLoadImg(){
+      const image = this.pixi.renderer.plugins.extract.base64(this.pixi.stage);
+      console.log(image)
+      if (window.navigator.msSaveOrOpenBlob) {
+        let bstr = atob(image.split(',')[1]);
+        let n = bstr.length;
+        let u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        let blob = new Blob([u8arr]);
+        window.navigator.msSaveOrOpenBlob(blob, 'download' + '.' + 'png');
+      } else {
+        const a = document.createElement('a');
+        a.href = image;
+        a.setAttribute('download', 'download');
+        a.click();
+      }
+    }
   }
 }
 </script>
@@ -188,7 +214,13 @@ export default {
   color: #888888;
 }
 
-/deep/ .el-button {
-  border-radius: 0;
+/deep/ .el-button{
+  border: none;
+  background-color: #282626;
+  color: #888888;
+}
+
+/deep/ .el-button--mini {
+  padding: 0 6px;
 }
 </style>

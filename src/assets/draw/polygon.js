@@ -60,6 +60,7 @@ export function drawPolygon(color, app, pixi) {
     }
 
     function drawPolygonLine() {
+        if (app.mode !== 'polygon') return
         app.pixi.stage.removeChild(borderline)
         app.pixi.stage.removeChild(line)
         for (let i in polygon) {
@@ -80,6 +81,7 @@ export function drawPolygon(color, app, pixi) {
     }
 
     function drawLine() {
+        if (app.mode !== 'polygon') return
         line.moveTo(polygon[polygon.length - 4], polygon[polygon.length - 3])
         line.lineTo(polygon[polygon.length - 2], polygon[polygon.length - 1])
         app.pixi.stage.addChild(line);
