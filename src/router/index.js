@@ -8,6 +8,7 @@ import componentValueTransfer from "../views/componentValueTransfer";
 import pixi from "../views/pixi";
 import pixiDraw from "../views/pixiDraw";
 import three from "../views/three";
+import threeUse from "../views/threeUse";
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,11 @@ const routes = [
        path:"/three",
        name:"three",
        component:three,
+     },
+     {
+       path:"/threeUse",
+       name:"threeUse",
+       component:threeUse,
      },
    ]
  }

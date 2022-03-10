@@ -24,7 +24,6 @@ export function drawPolygon(color, app, pixi) {
     function whenMouseDown() {
         if (app.mode !== 'polygon') return
         canDraw = true
-
     }
 
     function mouseMove(e) {

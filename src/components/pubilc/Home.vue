@@ -30,7 +30,7 @@ export default{
 }
 .center{
   width: 100%;
-  height: calc(100% - 70px);
+  height: calc(100% - 60px);
   display: flex;
 }
 .center_l{

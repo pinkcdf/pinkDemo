@@ -4,8 +4,6 @@
 
 <script>
 import * as THREE from "three";
-import {OBJLoader, MTLLoader} from "three-obj-mtl-loader";
-import OrbitControls from "three-orbitcontrols";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
 
@@ -24,7 +22,7 @@ export default {
   methods: {
     init() {
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color(0x000000)
+      this.scene.background = new THREE.Color( 0x72645b );
       /**
        * 相机设置
        */
@@ -48,19 +46,19 @@ export default {
       this.renderer.render(this.scene, this.camera);
 
       this.loadLight()
-      this.loadObj()
+      // this.loadObj()
       this.loadHelper()
-      // this.loadGltf()
-      this.loadChange()
+      this.loadGltf()
+      // this.loadChange()
       this.render();
 
     },
 
     //创建鼠标控制对象
-    loadChange(){
-      let controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);//创建控件对象
-      controls.addEventListener('change', this.render)
-    },
+    // loadChange(){
+    //   let controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);//创建控件对象
+    //   controls.addEventListener('change', this.render)
+    // },
 
     //加载辅助线
     loadHelper(){
@@ -71,7 +69,7 @@ export default {
     loadLight(){
       //点光源
       let point = new THREE.PointLight(0x800080);
-      point.position.set(2000, 2000, 1000); //点光源位置
+      point.position.set(200, 200, 100); //点光源位置
       this.scene.add(point); //点光源添加到场景中
 
       // 点光源2  位置和point关于原点对称
@@ -79,51 +77,53 @@ export default {
       point2.position.set(-400, -200, -300); //点光源位置
       this.scene.add(point2); //点光源添加到场景中
 
-      let hemiLigth = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 1)
+      let hemiLigth = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 0.5)
       this.scene.add(hemiLigth)
       //环境光
-      let ambient = new THREE.AmbientLight(0x000000);
-      this.scene.add(ambient);
+      let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.1 );
+      this.scene.add(ambientLight);
+
     },
 
     //加载OBJ
-    loadObj() {
-      let that = this
-      let objLoader = new OBJLoader();
-      let mtlLoader = new MTLLoader();
-      // mtlLoader.load("/static/666.mtl", function (materials) {
-      //   materials.preload();
-      //   objLoader.setMaterials(materials);
-        objLoader.load(
-            "static/Aoi.obj",
-            function (obj) {
-              obj.position.set(0, 0, 0);
-              obj.scale.set(0.1, 0.1, 0.1);
-              that.scene.add(obj);
-              that.renderer.render(that.scene, that.camera)
-            },
-            function (xhr) {
-              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-            },
-            function (error) {
-              console.log(error);
-            }
-        );
-      // })
-    },
+    // loadObj() {
+    //   let that = this
+    //   let objLoader = new OBJLoader();
+    //   let mtlLoader = new MTLLoader();
+    //   mtlLoader.load("/static/666.mtl", function (materials) {
+    //     materials.preload();
+    //     objLoader.setMaterials(materials);
+    //     objLoader.load(
+    //         "static/Aoi.obj",
+    //         function (obj) {
+    //           obj.position.set(0, 0, 0);
+    //           obj.scale.set(0.05, 0.05, 0.05);
+    //           that.scene.add(obj);
+    //           that.renderer.render(that.scene, that.camera)
+    //         },
+    //         function (xhr) {
+    //           console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    //         },
+    //         function (error) {
+    //           console.log(error);
+    //         }
+    //     );
+    //   })
+    // },
 
     //加载Gltf
     loadGltf() {
+      let that = this
       const loader = new GLTFLoader();
-      loader.load('/static/dance.gltf',
+      loader.load('/static/kda_evelynn_dance_stage_moonlight_edition/scene.gltf',
           //成功的回调
           function (gltf) {
             //将模型加入到场景中
-            gltf.position.set(0, 0, 0);
-            gltf.scale.set(0.1, 0.1, 0.1);
-            scene.add(gltf.scene);
+            // gltf.position.set(0, 0, 0);
+            // gltf.scale.set(0.1, 0.1, 0.1);
+            that.scene.add(gltf.scene);
             //渲染场景
-            renderer.render(scene, camera);
+            that.renderer.render(that.scene, that.camera);
             console.log("成功")
           },
           //加载过程中的回调

@@ -2,7 +2,8 @@
   <div style="width: 100%;height: 100%">
 
     <div id="tool">
-      <div style="display: flex">
+      <div style="display: flex;align-items: center">
+        <el-color-picker :predefine="predefineColors" class="color" size="mini" color-format="hex" v-model="color" @change="choseColor()"></el-color-picker>
         <el-radio-group @change="changeMode" v-model="mode" size="mini" fill="white" text-color="black">
           <el-radio-button label="move">移动</el-radio-button>
           <el-radio-button label="polygon">多边形</el-radio-button>
@@ -15,7 +16,6 @@
           </el-radio-group>
         </div>
       </div>
-
       <el-button size="mini" type="info" @click="downLoadImg">下载</el-button>
     </div>
 <!--    <button @click="drawPolygonOnline"> 123</button>-->
@@ -34,6 +34,8 @@ export default {
   name: "pixiDraw",
   data() {
     return {
+      predefineColors: ['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585',],
+      color:'#ffffff',
       pixi: null,
       container: null,
       canDraw: false,
@@ -76,12 +78,22 @@ export default {
     },
 
     changeMode() {
-      require(`../assets/draw/${this.mode}`).drawPolygon('0xFFFFFF', this, this.$refs.pixi)
+      require(`../assets/draw/${this.mode}`).drawPolygon(this.colorTo(this.color), this, this.$refs.pixi)
+    },
+
+    choseColor(){
+      this.changeMode()
+    },
+
+    colorTo(){
+      let color = this.color.substring(1,this.color.length)
+      console.log(color)
+      return  ('0x'+color)
     },
 
     clear() {
       if (this.clearMode !== '') {
-        require(`../assets/draw/${this.clearMode}`).clearDraw('0xFFFFFF')
+        require(`../assets/draw/${this.clearMode}`).clearDraw(this.colorTo(this.color))
         this.clearMode = ''
       }
     },
@@ -168,7 +180,15 @@ export default {
         a.setAttribute('download', 'download');
         a.click();
       }
-    }
+    },
+  },
+
+  beforeDestroy() {
+    this.container = null
+    this.pixi = null
+    require(`../assets/draw/rect`).clearDraw(this.colorTo(this.color))
+    require(`../assets/draw/polygon`).clearDraw(this.colorTo(this.color))
+
   }
 }
 </script>
@@ -190,12 +210,17 @@ export default {
   padding: 4px 4px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .clear {
   margin-left: 10px;
   border-left: #cec6c6 solid 1px;
   padding: 0 10px;
+}
+
+.color{
+  margin-right: 10px;
 }
 
 /deep/ .el-radio-button .el-radio-button__inner {
@@ -226,6 +251,10 @@ export default {
 }
 
 /deep/ .el-button--mini {
-  padding: 0 6px;
+  padding: 7px 6px;
+}
+
+/deep/ .el-color-picker__trigger{
+  border: none;
 }
 </style>
