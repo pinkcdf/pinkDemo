@@ -74,7 +74,12 @@ export default {
           img: ''
         },
         {
-          title: "threeUse",
+          title: "three",
+          path: "/three",
+          img: ''
+        },
+        {
+          title: "show",
           path: "/threeUse",
           img: ''
         },

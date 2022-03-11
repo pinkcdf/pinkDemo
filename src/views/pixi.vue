@@ -5,17 +5,17 @@
         <div style="width: 200px;height:40px;display: flex;justify-content: center;align-items: center;z-index: 2;">
           <span style="z-index: 2">{{ item.text }}</span>
         </div>
-        <span>{{ item.name }}</span>
-        <img style="z-index: 2" width="100px" :src="item.img"/>
+        <span>{{ index }}</span>
+        <img style="z-index: 2" width="50px" :src="item.img"/>
         <div
-            style="z-index: 1;width: 100px;height: 30px;background-color: rgba(7,0,0,0.81);border-radius: 50%;position: relative;top: -20px;"></div>
+            style="z-index: 1;width: 50px;height: 15px;background-color: rgba(7,0,0,0.81);border-radius: 50%;position: relative;top: -10px;"></div>
       </div>
     </div>
-<!--    <button @click="addPlayer">新人入场</button>-->
-<!--    <button @click="sayHi">mac喊麦</button>-->
-<!--    <button @click="delText">清空喊麦</button>-->
-    <!--        <button @click="shoutSomeone">固定某人发言</button>-->
-<!--    <button @click="change">固定某人发言</button>-->
+    <button @click="addPlayer">新人入场</button>
+    <button @click="sayHi">mac喊麦</button>
+    <button @click="delText">清空喊麦</button>
+<!--            <button @click="shoutSomeone">固定某人发言</button>-->
+    <button @click="change">固定某人发言</button>
 
   </div>
 </template>

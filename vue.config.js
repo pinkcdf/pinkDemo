@@ -45,7 +45,7 @@ module.exports = {
 
     devServer: {
         open: true,//设置自动打开
-        host: '192.168.2.106',
+        host: '0.0.0.0',
         port: 9999,//设置端口
         proxy: proxyConfig[process.env.NODE_ENV]
     },

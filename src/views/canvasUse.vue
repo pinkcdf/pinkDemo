@@ -3,7 +3,6 @@
     <div class="tool">
       <button @click="tool = 1">直线</button>
       <button @click="tool = 2">矩形</button>
-      <button @click="test">test</button>
     </div>
     <canvas id="canvas" ref="myCanvas" :width="width" :height="height"
             @mousedown="mousedown" @mouseup="mouseup" @mousemove="mousemove" @mouseout="" />
