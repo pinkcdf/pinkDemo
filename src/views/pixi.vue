@@ -14,8 +14,8 @@
     <button @click="addPlayer">新人入场</button>
     <button @click="sayHi">mac喊麦</button>
     <button @click="delText">清空喊麦</button>
-<!--            <button @click="shoutSomeone">固定某人发言</button>-->
     <button @click="change">固定某人发言</button>
+    <button @click="movePlayer(3)">移除用户</button>
 
   </div>
 </template>
@@ -110,6 +110,9 @@ export default {
         })
       }, 100)
     },
+    movePlayer(val){
+      this.player.splice(val,1)
+    }
   }
 }
 ;

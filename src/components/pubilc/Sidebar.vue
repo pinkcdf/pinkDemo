@@ -9,20 +9,20 @@
              active-text-color="#ffd04b"
              router
              style="width: 200px">
-      <template v-for="item in menuList" >
-        <el-submenu v-if="haveSub(item.subs)" :key="item.path" :index="item.path" >
+      <template v-for="item in menuList">
+        <el-submenu v-if="haveSub(item.subs)" :key="item.path" :index="item.path">
           <template slot="title">
             <i :class="item.img"></i>
-            <span slot="title">{{item.title}}</span>
+            <span slot="title">{{ item.title }}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-for="sub in item.subs" :key="sub.path" :index="sub.path">{{sub.title}}</el-menu-item>
+            <el-menu-item v-for="sub in item.subs" :key="sub.path" :index="sub.path">{{ sub.title }}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item v-else :key="item.path" :index="item.path" >
+        <el-menu-item v-else :key="item.path" :index="item.path">
           <template slot="title">
-<!--            <i class="el-icon-location"></i>-->
-            <span slot="title">{{item.title}}</span>
+            <!--            <i class="el-icon-location"></i>-->
+            <span slot="title">{{ item.title }}</span>
           </template>
         </el-menu-item>
       </template>
@@ -40,7 +40,7 @@ export default {
         {
           title: "图表",
           path: "/",
-          img:'',
+          img: '',
           subs: [
             {
               title: "highChart图表",
@@ -54,45 +54,63 @@ export default {
           ]
         },
         {
-          title: "canvas的简单使用",
-          path: "/canvasUse",
-          img: ''
-        },
-        {
           title: "组件的数据交互",
           path: "/componentValueTransfer",
           img: ''
         },
-        {
-          title: "demo",
-          path: "/pixi",
-          img: ''
-        },
+        // {
+        //   title: "demo",
+        //   path: "/pixi",
+        //   img: ''
+        // },
         {
           title: "pixi绘图",
           path: "/pixiDraw",
           img: ''
         },
         {
-          title: "three",
+          title: "threeJs的使用",
           path: "/three",
-          img: ''
+          img: '',
+          subs: [
+            {
+              title: "threeJsDome",
+              path: "/three",
+              img: ''
+            },
+            {
+              title: "3D场景",
+              path: "/threeUse",
+              img: ''
+            },
+          ]
+        },
+
+        {
+          title: "fabricjs的使用",
+          path: "/fabricjs",
+          img: 'fabricjs'
         },
         {
-          title: "show",
-          path: "/threeUse",
-          img: ''
+          title: "搜索栏封装",
+          path: "/searchBar",
+          img: 'searchBar'
+        },
+        {
+          title: "html5 drag",
+          path: "/dragAndDrop",
+          img: 'dragAndDrop'
         },
       ]
     };
   },
-  computed:{
-    haveSub(){
-      return function(val){
+  computed: {
+    haveSub() {
+      return function (val) {
         // console.log(val);
-        if (val === null || val === undefined){
+        if (val === null || val === undefined) {
           return false
-        }else {
+        } else {
           return true
         }
       }

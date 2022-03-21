@@ -10,6 +10,8 @@ import Highcharts from 'highcharts'
 import Maps from "highcharts/modules/map";
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/default.css'
+import { fabric } from 'fabric'
+Vue.use(fabric);
 Vue.use(ElementUI);
 Maps(Highcharts)
 Vue.use(HighchartsVue);

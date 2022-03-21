@@ -28,7 +28,6 @@
 
 <script>
 import * as PIXI from "pixi.js";
-import {clearDraw, clearLine} from "../assets/draw/polygon";
 
 export default {
   name: "pixiDraw",

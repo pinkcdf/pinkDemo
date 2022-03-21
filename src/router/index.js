@@ -3,12 +3,15 @@ import VueRouter from "vue-router";
 import Home from "../components/pubilc/Home.vue"
 import highchartsUse from "../views/highchartsUse";
 import highchartsMapUse from "../views/highchartsMapUse";
-import canvasUse from "../views/canvasUse";
 import componentValueTransfer from "../views/componentValueTransfer";
 import pixi from "../views/pixi";
 import pixiDraw from "../views/pixiDraw";
 import three from "../views/three";
 import threeUse from "../views/threeUse";
+import fabricjs from "../views/fabricjs";
+import searchBar from "../views/searchBar";
+import expressionVerification from "../views/expressionVerification";
+import dragAndDrop from "../views/dragAndDrop";
 
 Vue.use(VueRouter);
 
@@ -27,11 +30,6 @@ const routes = [
        path:"/highchartsMapUse",
        name:"highchartsMapUse",
        component:highchartsMapUse,
-     },
-     {
-       path:"/canvasUse",
-       name:"canvasUse",
-       component:canvasUse,
      },
      {
        path:"/componentValueTransfer",
@@ -57,6 +55,26 @@ const routes = [
        path:"/threeUse",
        name:"threeUse",
        component:threeUse,
+     },
+     {
+       path:"/fabricjs",
+       name:"fabricjs",
+       component:fabricjs,
+     },
+     {
+       path:"/searchBar",
+       name:"searchBar",
+       component:searchBar,
+     },
+     {
+       path:"/expressionVerification",
+       name:"expressionVerification",
+       component:expressionVerification,
+     },
+     {
+       path:"/dragAndDrop",
+       name:"dragAndDrop",
+       component:dragAndDrop,
      },
    ]
  }
