@@ -63,11 +63,7 @@ export default {
         //   path: "/pixi",
         //   img: ''
         // },
-        {
-          title: "pixi绘图",
-          path: "/pixiDraw",
-          img: ''
-        },
+
         {
           title: "threeJs的使用",
           path: "/three",
@@ -85,22 +81,59 @@ export default {
             },
           ]
         },
-
         {
-          title: "fabricjs的使用",
-          path: "/fabricjs",
-          img: 'fabricjs'
+          title: "绘图",
+          path: "/pixiDraw",
+          img: '',
+          subs: [
+            {
+              title: "pixi绘图",
+              path: "/pixiDraw",
+              img: ''
+            },
+            {
+              title: "pixi绘图ForGSIV",
+              path: "/pixiDrawGSIV",
+              img: ''
+            },
+            {
+              title: "fabricjs的使用",
+              path: "/fabricjs",
+              img: 'fabricjs'
+            },
+          ]
         },
+
+
         {
           title: "搜索栏封装",
           path: "/searchBar",
           img: 'searchBar'
         },
         {
-          title: "html5 drag",
+          title: "拖拽",
           path: "/dragAndDrop",
+          img: '',
+          subs: [
+            {
+              title: "html5 drag",
+              path: "/dragAndDrop",
+              img: 'dragAndDrop'
+            },
+            {
+              title: "究极拖拽",
+              path: "/vuedraggable",
+              img: 'vuedraggable'
+            },
+          ]
+        },
+
+        {
+          title: "多级递归",
+          path: "/recursiveComponent",
           img: 'dragAndDrop'
         },
+
       ]
     };
   },

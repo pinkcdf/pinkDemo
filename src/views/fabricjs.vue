@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%; height: 100%; box-sizing: border-box; border: saddlebrown solid 1px">
-    <canvas  ref="canvas" id="canvas" style="border: saddlebrown solid 1px"></canvas>
+    <canvas ref="canvas" id="canvas" style="border: saddlebrown solid 1px;width: 800px;height: 500px"></canvas>
   </div>
 </template>
 
@@ -140,8 +140,6 @@ export default {
         }
       });
       canvas.on('mouse:up', function(opt) {
-        // on mouse up we want to recalculate new interaction
-        // for all objects, so we call setViewportTransform
         this.setViewportTransform(this.viewportTransform);
         this.isDragging = false;
         this.selection = true;
@@ -159,5 +157,8 @@ export default {
 </script>
 
 <style scoped>
-
+#canvas{
+  width: 800px;
+  height: 700px;
+}
 </style>

@@ -10,6 +10,15 @@ const proxyConfig = {
             // }
             timeout: 3600000,
         },
+        '/gallery': {
+            target: 'http://117.83.108.52:8082/',
+            changeOrigin: true,
+            secure: false, //如果是http接口，需要配置该参数
+            // pathRewrite:{
+            //     '/api':''
+            // }
+            timeout: 3600000,
+        },
     },
     // 生产环境，在线代理
     production: {

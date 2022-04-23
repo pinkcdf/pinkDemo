@@ -12,6 +12,9 @@ import fabricjs from "../views/fabricjs";
 import searchBar from "../views/searchBar";
 import expressionVerification from "../views/expressionVerification";
 import dragAndDrop from "../views/dragAndDrop";
+import recursiveComponent from "../views/recursiveComponent";
+import vuedraggable from "../views/vuedraggable";
+import pixiDrawGSIV from "../views/pixiDrawGSIV";
 
 Vue.use(VueRouter);
 
@@ -47,6 +50,11 @@ const routes = [
        component:pixiDraw,
      },
      {
+       path:"/pixiDrawGSIV",
+       name:"pixiDrawGSIV",
+       component:pixiDrawGSIV,
+     },
+     {
        path:"/three",
        name:"three",
        component:three,
@@ -75,6 +83,16 @@ const routes = [
        path:"/dragAndDrop",
        name:"dragAndDrop",
        component:dragAndDrop,
+     },
+     {
+       path:"/recursiveComponent",
+       name:"recursiveComponent",
+       component:recursiveComponent,
+     },
+     {
+       path:"/vuedraggable",
+       name:"vuedraggable",
+       component:vuedraggable,
      },
    ]
  }
